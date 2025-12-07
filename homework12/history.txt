@@ -1,0 +1,13 @@
+
+  497  git clone git@github.com:viktorplus/homework12.git
+  498  git status
+  499  cd homework12
+  500  git status
+  501  git checkout -b feature
+  502  git add .
+  503  git status
+  504  git commit -m "add file README.md update file .ignore"
+  505  git push -u origin feature
+  506  git checkout main
+  507  git merge feature
+  508  history >history.txt
