@@ -1,0 +1,20 @@
+  977  mv task_viktor.sh task-viktor/
+  978  ls -lah
+  979  mv task_viktor.sh task_viktor
+  980  ls -lah
+  981  cd task_viktor
+  982  ls -lah
+  983  cd ..
+  984  rm -rf task_viktor
+  985  exit
+  986   cd /opt/101025-ptm/viktorplus
+  987  mkdir task_viktor
+  988  cd task_viktor
+  989  nano task_viktor.sh
+  990  chmod +x task_viktor.sh
+  991  ls -la
+  992  ./task_viktor.sh 
+  993  ls -la
+  994  crontab -e
+  995  ls -la
+  996  history | tail -n 20 > history.txt
