@@ -1,4 +1,4 @@
-#!/bin/bash
+/   #!/bin/bash
 : << "DOC"
 Linux: Домашнее задание 13 (Python)
 - Создайте папку со своим именем в на сервере linux.itcareerhub.de. 
