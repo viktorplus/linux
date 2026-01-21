@@ -18,7 +18,7 @@ while true; do
   else
     fails=0
 
-    rtt=$(echo "$ping_result" | sed -n 's/.*time=\([0-9.]\+\) ms.*/\1/p' | head -n 1)
+    rtt=$(echo "$ping_result" | grep 'time=' | head -n 1 | sed 's/.*time=//' | sed 's/ ms.*//')
     rtt_int=$(echo "$rtt" | sed 's/\..*//')
 
     if (( ${#rtt_int} > 0 && rtt_int > 100 )); then
