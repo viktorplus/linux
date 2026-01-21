@@ -1,15 +1,30 @@
 #!/bin/bash
-#
-#read -p "Введите адрес сервера для пинга: " address
-#read -p "Введите количество запросов: " count
+
 address=$1
-count=$2
-if [ -z "$address" ] || [ -z "$count" ]
-  then
-  echo "Использование: $0 < IP address или Domain name > <количество запросов>"
-  exit 1
+if (( ${#address} == 0 )); then
+  read -p "Введите адрес сервера для пинга: " address
 fi
- 
-ping_result=$(ping -c $count $address)
-avg_ping=$(echo "$ping_result" | awk -F"/" '/^rtt/ {print $5}')
-echo "Среднее время пинга = $avg_ping ms."
+
+fails=0
+
+while true; do
+  ping_result=$(ping -c 1 "$address" 2>/dev/null)
+
+  if (( $? != 0 )); then
+    ((fails++))
+    if (( fails >= 3 )); then
+      echo "$(date '+%F %T')  Пинг не удаётся уже $fails раза подряд. [$address]"
+    fi
+  else
+    fails=0
+
+    rtt=$(echo "$ping_result" | sed -n 's/.*time=\([0-9.]\+\) ms.*/\1/p' | head -n 1)
+    rtt_int=$(echo "$rtt" | sed 's/\..*//')
+
+    if (( ${#rtt_int} > 0 && rtt_int > 100 )); then
+      echo "$(date '+%F %T')  Длинный пинг: $rtt ms (>100). [$address]"
+    fi
+  fi
+
+  sleep 1
+done
